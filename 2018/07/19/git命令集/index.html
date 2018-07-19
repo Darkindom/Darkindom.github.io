@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="git," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一些git命令的笔记，本文仅作为&amp;laquo;git常用命令&amp;raquo;的补充">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git命令集">
+<meta property="og:url" content="http://yoursite.com/2018/07/19/git命令集/index.html">
+<meta property="og:site_name" content="Dk&#39;s BLOG">
+<meta property="og:description" content="一些git命令的笔记，本文仅作为&amp;laquo;git常用命令&amp;raquo;的补充">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-19T09:14:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git命令集">
+<meta name="twitter:description" content="一些git命令的笔记，本文仅作为&amp;laquo;git常用命令&amp;raquo;的补充">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/19/git命令集/"/>
+
+
+
+
+
+  <title>git命令集 | Dk's BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dk's BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/19/git命令集/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dk">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dk's BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">git命令集</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-19T17:05:07+08:00">
+                2018-07-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程工具/" itemprop="url" rel="index">
+                    <span itemprop="name">编程工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  一些git命令的笔记，本文仅作为&laquo;git常用命令&raquo;的补充
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="本地"><a href="#本地" class="headerlink" title="本地"></a>本地</h1><p>git commit    提交记录<br>git log    查看记录<br>git branch xxx    新建分支xxx<br>    git checkout xxx    切换到xxx分支    git checkout -b xxx 新建xxx并切换到这个分支<br>    git branch -f master xxx    强制把master分支指向xxx<br>    git branch -d <branch-name>    删除分支<br>git merge yyy    把yyy合并到当前分支<br>git rebase xxx    取出提交记录，并“复制”它们，在另一个地方xxx逐个放下去，可以创造更线性的提交历史（原来的节点依然存在）</branch-name></p>
+<p>git checkout C1    分离HEAD到C1            cart.git/HEAD查看HEAD指向，git symbolic-ref HEAD查看HEAD指向的引用<br>git checkout HEAD^    ^父节点， ~n往上n个父节点</p>
+<p>git reset HEAD~1    回退，同时撤销的节点在本地就不存在了。主要用于本地<br>git revert HEAD       回退，在撤销的提交记录后面多了一个新提交。主要用于远程</p>
+<p>git cherry-pick &lt;提交号&gt;     将一些提交复制到当前所在的位置（HEAD）<br>git cherry-pick C2 C4<br>        注意 cherry-pick 不能取上游的节点</p>
+<p>git rebase -i    交互式rebase<br>git rebase -i HEAD~4    </p>
+<p>git tag <tag name=""> <branch name=""><br>git tag v1 C1        让标签v1指向提交记录C1，如果v不指定提交记录，则以HEAD所指向的位置<br>git describe <ref>    <ref>可以是任何能被git识别成提交记录的引用，如果没有指定的话 就是HEAD<br>    输出结果    <tag>_<numcommits>_g<hash><br>                        tag表示离ref最近的标签，numCommits表示 ref和tag相差多少提交记录，hash表示ref的哈希值前几位<br>                        若ref提交记录上有某个标签时，只输出标签名称<br>    git bisect 查找产生BUG的提交记录的指令</hash></numcommits></tag></ref></ref></branch></tag></p>
+<h1 id="远程"><a href="#远程" class="headerlink" title="远程"></a>远程</h1><p>origin/master    origin即远程分支名字，master为本地分支。在检出远程分支时 会自动进入分离HEAD状态。<br>git clone<br>git fetch    获取数据    1.从远程仓库下载本地仓库缺失的提交记录；2.更新远程分支指针（比如origin/master）到最新状态<br>                    fetch只是把远程的数据下载下来，并不会修改本地的文件<br>git pull    相当于 git fetch; git merge origin/master;<br>                也就是 git fetch 和 git merge <just-fetched-branch> 的缩写<br>git push    将你的变更上传到指定的远程仓库，并在远程仓库上合并你的新提交记录。<br>                不带任何参数时的行为与git的一个名为 push.default 的配置有关。</just-fetched-branch></p>
+<p>git pull –rebase     相当于 git fetch; git rebase<br>git pull; git merge    和上面效果一样，不过上面提交树干净，而下面保留了所有提交历史</p>
+<p>master 和 origin/master 的关联关系是由分支的 remote tracking属性决定的，master被设定为跟踪 origin/master</p>
+<p>远程跟踪    让任意分支跟踪 origin/master，该分支就会像master分支一样得到隐含的push目的地以及merge的目标。意味着你就可以在分支 totallyNotMaster 上执行 git push<br>两种方法设置这种属性：<br>    1.git checkout -b totallyNotMaster  origin/master        创建一个名为 totallyNotMaster的分支，让它跟踪origin/master<br>    2.git branch -u origin/master foo              这样foo就会跟踪origin/master，如果当前就在foo分支上，还可以省略foo</p>
+<p>push参数<br>git push <remote> <place><br>git push origin master    切到本地仓库的 master 分支，获取所有提交，再到远程仓库 origin 中找到 master 分支，将远程仓库中没有的提交记录都添加上去<br>            通过 place 参数告诉git提交记录来自于 master，要推送到远程仓库中的 master，实际就是要同步的两个仓库的位置<br>            因为已经通过指定参数告诉了git所有它需要的信息，所以它就忽略了我们所检出的分支的属性<br>    place<br>    如果要同时指定源和目的地的<place>的话，只需要用冒号：将二者连起来即可<br>    git push origin <source>:<destination><br>    git push origin foo^:master    source可以是任何git可以识别的位置！    如果目的分支不存在，git会在远程仓库中以目的分支的名字创建这个分支</destination></place></place></remote></p>
+<p>fetch参数<br>push的参数都可以用在fetch上。只不过方向是相反的（push上传，fetch下载）<br>git fetch origin foo    git会到远程仓库的foo分支上，然后获取所有本地不存在的提交，放到本地的o/foo上</p>
+<p>没有source<br>在push和fetch时可以不指定 source，方法是仅保留冒号和destination的部分，source部分留空<br>git push origin :side        删除远程远程仓库的side分支<br>git fetch origin :bugFix     在本地新建一个 bugFix分支</p>
+<p>pull参数<br>pull就是fetch 和 merge的缩写，所以<br>    git pull origin foo         就相当于         git fetch origin foo; git merge o/foo<br>    git pull origin bar~1:bugFix   相当于   git fetch origin bar~1:bugFix; git merge bugFix<br>    git pull 唯一关注的就是提交最终合并到哪里，也就是fetch提供的 destination参数</p>
+<p>| 作者：<a href="https://github.com/Darkindom" target="_blank" rel="noopener">Dk</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/19/git常用命令/" rel="next" title="git常用命令">
+                <i class="fa fa-chevron-left"></i> git常用命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/19/web-cache/" rel="prev" title="web缓存机制">
+                web缓存机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Dk</p>
+              <p class="site-description motion-element" itemprop="description">Hi, I'm Dk! Welcome!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本地"><span class="nav-number">1.</span> <span class="nav-text">本地</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#远程"><span class="nav-number">2.</span> <span class="nav-text">远程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dk</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

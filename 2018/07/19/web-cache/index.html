@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="cache," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="关于前端缓存机制的学习笔记">
+<meta name="keywords" content="cache">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web缓存机制">
+<meta property="og:url" content="http://yoursite.com/2018/07/19/web-cache/index.html">
+<meta property="og:site_name" content="Dk&#39;s BLOG">
+<meta property="og:description" content="关于前端缓存机制的学习笔记">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/images/web-cache/cache1.png">
+<meta property="og:image" content="http://yoursite.com/images/web-cache/cache2.png">
+<meta property="og:image" content="http://yoursite.com/images/web-cache/cache3.png">
+<meta property="og:image" content="http://yoursite.com/images/web-cache/cache4.png">
+<meta property="og:image" content="http://yoursite.com/images/web-cache/cache5.png">
+<meta property="og:image" content="http://yoursite.com/images/web-cache/cache6.png">
+<meta property="og:image" content="http://yoursite.com/images/web-cache/cache7.png">
+<meta property="og:image" content="http://yoursite.com/images/web-cache/cache8.png">
+<meta property="og:updated_time" content="2018-07-19T09:38:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="web缓存机制">
+<meta name="twitter:description" content="关于前端缓存机制的学习笔记">
+<meta name="twitter:image" content="http://yoursite.com/images/web-cache/cache1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/19/web-cache/"/>
+
+
+
+
+
+  <title>web缓存机制 | Dk's BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dk's BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/19/web-cache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dk">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dk's BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">web缓存机制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-19T17:15:50+08:00">
+                2018-07-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  关于前端缓存机制的学习笔记
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h1><p>前端主要的缓存方法有</p>
+<ul>
+<li>Cache-Control, Expires, Last-modified, ETag, localStorage, sessionStorage  </li>
+</ul>
+<p>下面将依次介绍。</p>
+<h2 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h2><h3 id="max-age（单位-s）"><a href="#max-age（单位-s）" class="headerlink" title="max-age（单位 s）"></a>max-age（单位 s）</h3><p>指定设置缓存的最大有效时间，定义的是时间长短。浏览器向服务器发送请求后，在 max-age 时间里不会再向浏览器发送请求<br><img src="/images/web-cache/cache1.png" alt="cache1"><br>如图，缓存有效期为2592000秒（30天），即30天内都会使用这个版本的资源，即使服务器上的资源发生改变浏览器也不会得到通知，max-age会覆盖 Expires</p>
+<h3 id="s-maxage（单位-s）-和max-age一样，但只用于共享缓存（比如CDN）"><a href="#s-maxage（单位-s）-和max-age一样，但只用于共享缓存（比如CDN）" class="headerlink" title="s-maxage（单位 s） 和max-age一样，但只用于共享缓存（比如CDN）"></a>s-maxage（单位 s） 和max-age一样，但只用于共享缓存（比如CDN）</h3><p>如当s-maxage=60时，在这60秒中，即使CDN的内容更新，浏览器也不会请求。</p>
+<blockquote>
+<p>max-age用于普通缓存，s-maxage用于代理缓存。</p>
+</blockquote>
+<p>如果存在s-maxage，则会覆盖max-age和 Expires header</p>
+<p>public    指定响应会被缓存，在多用户间共享<br>private    响应只作为私有缓存，不在用户间共享    （如果要求http认证，响应会自动设置为private）<br><img src="/images/web-cache/cache2.png" alt="cache2"><br><img src="/images/web-cache/cache3.png" alt="cache3"></p>
+<p>no-cache<br>    指定不缓存响应，表明资源不尽兴缓存<br>    设置 no-cache 不代表浏览器不缓存，而是在缓存前向服务器确认资源是否被更改，所以有时候只设置no-cache防止缓存是不保险的，还可以加上private指令，将过期时间设置为过去的时间。</p>
+<p>no-store    绝对禁止缓存<br>must-revalidate    指定如果页面过期就去服务器进行获取。    不常用</p>
+<h2 id="Expires-（HTTP-1-1开始，使用Cache-Control：max-age替代）"><a href="#Expires-（HTTP-1-1开始，使用Cache-Control：max-age替代）" class="headerlink" title="Expires    （HTTP 1.1开始，使用Cache-Control：max-age替代）"></a>Expires    （HTTP 1.1开始，使用Cache-Control：max-age替代）</h2><p>缓存过期时间<br>指定资源到期的时间，是服务器端的具体的时间。<br>Expires = max-age + 请求时间<br>需要和 last-modified 结合使用<br>cache-control 的优先级更高<br>Expires 是服务器响应消息头字段，在响应http请求时告诉浏览器在过期时间前浏览器可以直接从浏览器缓存中获取数据，无需再次请求。<br><img src="/images/web-cache/cache4.png" alt="cache4"></p>
+<h2 id="Last-modified"><a href="#Last-modified" class="headerlink" title="Last-modified"></a>Last-modified</h2><p>服务器文件的最后修改时间，需要和 cache-control 结合使用，是检查服务器资源是否更新的一种方式。<br>当浏览器再次请求时，会向服务器传送 If-Modified-Since 报头，询问 Last-Modified 时间点之后资源是否被修改过，如果没修改，返回304，使用缓存；如果修改过，再次向服务器请求资源，返回码和首次请求一样为200，资源为服务器端最新资源。<br><img src="/images/web-cache/cache5.png" alt="cache5"></p>
+<h2 id="ETag"><a href="#ETag" class="headerlink" title="ETag"></a>ETag</h2><p>根据实体内容生成一段hash字符串，标识资源状态，由服务器端产生。<br>浏览器会将这串字符串传回服务器，验证资源是否已修改<br><img src="/images/web-cache/cache6.png" alt="cache6"></p>
+<p>ETag可以解决Last-modified存在的问题：</p>
+<ul>
+<li>1、一些服务器不能精确得到资源的最后修改时间，这样就无法通过 last-modified 判断资源是否更新；</li>
+<li>2、如果资源修改频繁，在秒以下的单位时间内进行修改，而 last-modified 只能精确到秒；</li>
+<li>3、如果资源的 last-modified 改变了，但是资源内容没变，ETag就认为资源还没有修改。</li>
+</ul>
+<h2 id="LocalStorage-和-SessionStorage"><a href="#LocalStorage-和-SessionStorage" class="headerlink" title="LocalStorage 和 SessionStorage"></a>LocalStorage 和 SessionStorage</h2><p>LocalStorage在PC上的兼容性不太好，而且当网络速度快、协商缓存响应快时使用localStorage的速度比不上304。并且不能缓存css文件。而移动端由于网速慢，使用localStorage要快于304。</p>
+<h1 id="缓存流程"><a href="#缓存流程" class="headerlink" title="缓存流程"></a>缓存流程</h1><p><img src="/images/web-cache/cache7.png" alt="cache7"></p>
+<h2 id="cache-control-流程"><a href="#cache-control-流程" class="headerlink" title="cache-control 流程"></a>cache-control 流程</h2><p><img src="/images/web-cache/cache8.png" alt="cache8"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cache/" rel="tag"># cache</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/19/git命令集/" rel="next" title="git命令集">
+                <i class="fa fa-chevron-left"></i> git命令集
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/19/前端面试算法/" rel="prev" title="常见算法">
+                常见算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Dk</p>
+              <p class="site-description motion-element" itemprop="description">Hi, I'm Dk! Welcome!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#缓存"><span class="nav-number">1.</span> <span class="nav-text">缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cache-Control"><span class="nav-number">1.1.</span> <span class="nav-text">Cache-Control</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#max-age（单位-s）"><span class="nav-number">1.1.1.</span> <span class="nav-text">max-age（单位 s）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#s-maxage（单位-s）-和max-age一样，但只用于共享缓存（比如CDN）"><span class="nav-number">1.1.2.</span> <span class="nav-text">s-maxage（单位 s） 和max-age一样，但只用于共享缓存（比如CDN）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Expires-（HTTP-1-1开始，使用Cache-Control：max-age替代）"><span class="nav-number">1.2.</span> <span class="nav-text">Expires    （HTTP 1.1开始，使用Cache-Control：max-age替代）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Last-modified"><span class="nav-number">1.3.</span> <span class="nav-text">Last-modified</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ETag"><span class="nav-number">1.4.</span> <span class="nav-text">ETag</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LocalStorage-和-SessionStorage"><span class="nav-number">1.5.</span> <span class="nav-text">LocalStorage 和 SessionStorage</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缓存流程"><span class="nav-number">2.</span> <span class="nav-text">缓存流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cache-control-流程"><span class="nav-number">2.1.</span> <span class="nav-text">cache-control 流程</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dk</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
